@@ -12,6 +12,10 @@
     <PackageTags>rjoseph;track;tracking;tracked</PackageTags>
     <PackageReleaseNotes>A library to add tracking capabilities to resources, like createdon, createdby, updatedon, voidon, etc.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
+  
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 </Project>
