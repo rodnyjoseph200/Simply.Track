@@ -11,6 +11,7 @@
     <Description>A library to add tracking capabilities to resources, like createdon, createdby, updatedon, voidon, etc.</Description>
     <PackageTags>rjoseph;track;tracking;tracked</PackageTags>
     <PackageReleaseNotes>A library to add tracking capabilities to resources, like createdon, createdby, updatedon, voidon, etc.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
