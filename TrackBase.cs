@@ -1,6 +1,6 @@
 ﻿namespace Simply.Track
 {
-    public abstract class TrackBase
+    public abstract record TrackBase
     {
         public DateTimeOffset CreatedOn { get; protected set; }
         public string? CreatedBy { get; protected set; }
