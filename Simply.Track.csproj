@@ -13,6 +13,9 @@
     <PackageReleaseNotes>A library to add tracking capabilities to resources, like createdon, createdby, updatedon, voidon, etc.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/rodnyjoseph200/Simply.Track</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
   </PropertyGroup>
   
   <ItemGroup>
