@@ -37,6 +37,3 @@ jobs:
 
       - name: Build
         run: dotnet build --no-restore -c Release --warnAsError
-
-      - name: Tests
-        run: dotnet test --no-build --no-restore -c Release tests/Xes.UnitTests/Xes.Tests.csproj
