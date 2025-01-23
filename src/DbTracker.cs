@@ -24,9 +24,6 @@ public record DbTracker : TrackBase
         if (tracker.IsVoid)
             throw new Exception($"{nameof(TrackUpdate)} failed. Tracker is void");
 
-        if (!tracker.IsUpdated)
-            throw new Exception($"{nameof(TrackUpdate)} failed. Tracker is not updated.");
-
         CreatedOn = tracker.CreatedOn;
         CreatedBy = tracker.CreatedBy;
         UpdatedOn = DateTimeOffset.UtcNow;
