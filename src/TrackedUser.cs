@@ -1,11 +1,10 @@
-﻿namespace Simply.Track
+﻿namespace Simply.Track;
+
+public class TrackedUser
 {
-    public class TrackedUser
-    {
-        public string UserName { get; init; }
+    public string UserName { get; init; }
 
-        private TrackedUser(string userName) => UserName = userName;
+    private TrackedUser(string userName) => UserName = userName;
 
-        public static TrackedUser Create(string userName) => new(userName);
-    }
+    public static TrackedUser Create(string userName) => new(userName);
 }

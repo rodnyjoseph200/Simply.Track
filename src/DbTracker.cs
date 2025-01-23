@@ -77,4 +77,3 @@ public record DbTracker : TrackBase
         VoidReason = null;
     }
 }
-
