@@ -8,7 +8,7 @@ public record Tracker : TrackBase
     {
     }
 
-    public Tracker LoadTracking(DateTimeOffset createdOn, string createdBy, DateTimeOffset updatedOn, string updatedBy,
+    public static Tracker LoadTracking(DateTimeOffset createdOn, string createdBy, DateTimeOffset updatedOn, string updatedBy,
         bool isVoid, DateTimeOffset? voidOn, string? voidBy, string? voidMessage, VoidReasons? voidReason)
     {
         if (isVoid && (voidOn is null || voidBy is null || voidMessage is null || voidReason is null))
