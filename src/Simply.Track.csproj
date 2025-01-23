@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/rodnyjoseph200/Simply.Track</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
