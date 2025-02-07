@@ -1,11 +1,16 @@
 # Simply.Track
 
-Simply Track is a free to use package that allows you to add tracking capabilities to your .NET models.
-Add a Tracker property to your core model and a DbTracker property to your database model.
+Simply Track adds tracking capabilities to your .NET models.
 
-Install from NuGet:
+## NuGet:
 ```
-https://www.nuget.org/packages/Simply.Track/1.0.0
+https://www.nuget.org/packages/Simply.Track
 ```
 
-## Package Usage Project Example
+## How to use
+
+Add a Tracker property to your core models and a DbTracker property to your database models.
+
+## Project Examples
+
+https://github.com/rodnyjoseph200/SimplyChat.ChatService
