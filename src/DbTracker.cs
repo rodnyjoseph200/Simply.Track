@@ -7,30 +7,59 @@ public record DbTracker : TrackBase
         base(createdOn, createdBy, updatedOn, updatedBy, isVoid, voidOn, voidBy, voidMessage, voidReason)
     { }
 
+    public static Tracker Convert(DbTracker dbTracker)
+    {
+        if (dbTracker is null)
+            throw new ArgumentNullException(nameof(dbTracker));
+
+        var tracker = Tracker.Load(
+            createdOn: dbTracker.CreatedOn,
+            createdBy: dbTracker.CreatedBy,
+            updatedOn: dbTracker.UpdatedOn,
+            updatedBy: dbTracker.UpdatedBy,
+            isVoid: dbTracker.IsVoid,
+            voidOn: dbTracker.VoidOn,
+            voidBy: dbTracker.VoidBy,
+            voidMessage: dbTracker.VoidMessage,
+            voidReason: dbTracker.VoidReason
+        );
+
+        return tracker;
+    }
+
     public static DbTracker Create(string createdBy)
     {
         if (string.IsNullOrWhiteSpace(createdBy))
             throw new ArgumentNullException(nameof(createdBy));
 
         var now = DateTimeOffset.UtcNow;
-        return new DbTracker(now, createdBy, now, createdBy, false, null, null, null, null);
+        return new(now, createdBy, now, createdBy, false, null, null, null, null);
     }
 
-    public void TrackUpdate(Tracker tracker, string updatedBy)
+    public static DbTracker Update(Tracker tracker, string updatedBy)
     {
         if (string.IsNullOrWhiteSpace(updatedBy))
             throw new ArgumentNullException(nameof(updatedBy));
 
         if (tracker.IsVoid)
-            throw new Exception($"{nameof(TrackUpdate)} failed. Tracker is void");
+            throw new Exception($"{nameof(Update)} failed. Tracker is void");
 
-        CreatedOn = tracker.CreatedOn;
-        CreatedBy = tracker.CreatedBy;
-        UpdatedOn = DateTimeOffset.UtcNow;
-        UpdatedBy = updatedBy;
+        var now = DateTimeOffset.UtcNow;
+
+        return new(
+            createdOn: tracker.CreatedOn,
+            createdBy: tracker.CreatedBy,
+            updatedOn: now,
+            updatedBy: updatedBy,
+            isVoid: tracker.IsVoid,
+            voidOn: tracker.VoidOn,
+            voidBy: tracker.VoidBy,
+            voidMessage: tracker.VoidMessage,
+            voidReason: tracker.VoidReason
+        );
     }
 
-    public void TrackVoid(Tracker tracker, string updateBy,
+    public static DbTracker TrackVoid(Tracker tracker, string updateBy,
         string voidBy, string voidMessage, VoidReasons voidReason)
     {
         if (string.IsNullOrWhiteSpace(updateBy))
@@ -46,18 +75,21 @@ public record DbTracker : TrackBase
             throw new Exception($"{nameof(TrackVoid)} failed. Tracker is already void.");
 
         var now = DateTimeOffset.UtcNow;
-        CreatedOn = tracker.CreatedOn;
-        CreatedBy = tracker.CreatedBy;
-        UpdatedOn = now;
-        UpdatedBy = updateBy;
-        IsVoid = true;
-        VoidOn = now;
-        VoidBy = voidBy;
-        VoidMessage = voidMessage;
-        VoidReason = voidReason;
+
+        return new(
+            createdOn: tracker.CreatedOn,
+            createdBy: tracker.CreatedBy,
+            updatedOn: now,
+            updatedBy: updateBy,
+            isVoid: true,
+            voidOn: now,
+            voidBy: voidBy,
+            voidMessage: voidMessage,
+            voidReason: voidReason
+        );
     }
 
-    public void TrackNoLongerVoid(Tracker tracker, string createdBy)
+    public static DbTracker TrackNoLongerVoid(Tracker tracker, string createdBy)
     {
         if (string.IsNullOrWhiteSpace(createdBy))
             throw new ArgumentNullException(nameof(createdBy));
@@ -67,13 +99,16 @@ public record DbTracker : TrackBase
 
         var now = DateTimeOffset.UtcNow;
 
-        CreatedOn = tracker.CreatedOn;
-        CreatedBy = tracker.CreatedBy;
-        UpdatedOn = now;
-        UpdatedBy = createdBy;
-        VoidOn = null;
-        VoidBy = null;
-        VoidMessage = null;
-        VoidReason = null;
+        return new(
+            createdOn: tracker.CreatedOn,
+            createdBy: tracker.CreatedBy,
+            updatedOn: now,
+            updatedBy: createdBy,
+            isVoid: false,
+            voidOn: null,
+            voidBy: null,
+            voidMessage: null,
+            voidReason: null
+        );
     }
 }
