@@ -1,11 +1,16 @@
 ﻿namespace Simply.Track;
 
-public record DbTracker : TrackBase
+public record DbTracker
 {
-    private DbTracker(DateTimeOffset createdOn, string createdBy, DateTimeOffset updatedOn, string updatedBy,
-        bool isVoid, DateTimeOffset? voidOn, string? voidBy, string? voidMessage, VoidReasons? voidReason) :
-        base(createdOn, createdBy, updatedOn, updatedBy, isVoid, voidOn, voidBy, voidMessage, voidReason)
-    { }
+    public DateTimeOffset CreatedOn { get; init; }
+    public required string CreatedBy { get; init; }
+    public DateTimeOffset UpdatedOn { get; init; }
+    public required string UpdatedBy { get; init; }
+    public bool IsVoid { get; init; }
+    public DateTimeOffset? VoidOn { get; init; }
+    public string? VoidBy { get; init; }
+    public string? VoidMessage { get; init; }
+    public VoidReasons? VoidReason { get; init; }
 
     public static Tracker Convert(DbTracker dbTracker)
     {
@@ -33,7 +38,15 @@ public record DbTracker : TrackBase
             throw new ArgumentNullException(nameof(createdBy));
 
         var now = DateTimeOffset.UtcNow;
-        return new(now, createdBy, now, createdBy, false, null, null, null, null);
+
+        return new DbTracker
+        {
+            CreatedOn = now,
+            CreatedBy = createdBy,
+            UpdatedOn = now,
+            UpdatedBy = createdBy,
+            IsVoid = false
+        };
     }
 
     public static DbTracker Update(Tracker tracker, string updatedBy)
@@ -46,17 +59,18 @@ public record DbTracker : TrackBase
 
         var now = DateTimeOffset.UtcNow;
 
-        return new(
-            createdOn: tracker.CreatedOn,
-            createdBy: tracker.CreatedBy,
-            updatedOn: now,
-            updatedBy: updatedBy,
-            isVoid: tracker.IsVoid,
-            voidOn: tracker.VoidOn,
-            voidBy: tracker.VoidBy,
-            voidMessage: tracker.VoidMessage,
-            voidReason: tracker.VoidReason
-        );
+        return new DbTracker
+        {
+            CreatedOn = tracker.CreatedOn,
+            CreatedBy = tracker.CreatedBy,
+            UpdatedOn = now,
+            UpdatedBy = updatedBy,
+            IsVoid = tracker.IsVoid,
+            VoidOn = tracker.VoidOn,
+            VoidBy = tracker.VoidBy,
+            VoidMessage = tracker.VoidMessage,
+            VoidReason = tracker.VoidReason
+        };
     }
 
     public static DbTracker TrackVoid(Tracker tracker, string updateBy,
@@ -76,17 +90,18 @@ public record DbTracker : TrackBase
 
         var now = DateTimeOffset.UtcNow;
 
-        return new(
-            createdOn: tracker.CreatedOn,
-            createdBy: tracker.CreatedBy,
-            updatedOn: now,
-            updatedBy: updateBy,
-            isVoid: true,
-            voidOn: now,
-            voidBy: voidBy,
-            voidMessage: voidMessage,
-            voidReason: voidReason
-        );
+        return new DbTracker
+        {
+            CreatedOn = tracker.CreatedOn,
+            CreatedBy = tracker.CreatedBy,
+            UpdatedOn = now,
+            UpdatedBy = updateBy,
+            IsVoid = true,
+            VoidOn = now,
+            VoidBy = voidBy,
+            VoidMessage = voidMessage,
+            VoidReason = voidReason
+        };
     }
 
     public static DbTracker TrackNoLongerVoid(Tracker tracker, string createdBy)
@@ -99,16 +114,17 @@ public record DbTracker : TrackBase
 
         var now = DateTimeOffset.UtcNow;
 
-        return new(
-            createdOn: tracker.CreatedOn,
-            createdBy: tracker.CreatedBy,
-            updatedOn: now,
-            updatedBy: createdBy,
-            isVoid: false,
-            voidOn: null,
-            voidBy: null,
-            voidMessage: null,
-            voidReason: null
-        );
+        return new DbTracker
+        {
+            CreatedOn = tracker.CreatedOn,
+            CreatedBy = tracker.CreatedBy,
+            UpdatedOn = now,
+            UpdatedBy = createdBy,
+            IsVoid = false,
+            VoidOn = null,
+            VoidBy = null,
+            VoidMessage = null,
+            VoidReason = null
+        };
     }
 }
