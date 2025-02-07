@@ -7,22 +7,24 @@ public record DbTracker : TrackBase
         base(createdOn, createdBy, updatedOn, updatedBy, isVoid, voidOn, voidBy, voidMessage, voidReason)
     { }
 
-    public static Tracker Convert(DbTracker tracker)
+    public static Tracker Convert(DbTracker dbTracker)
     {
-        if (tracker is null)
-            throw new ArgumentNullException(nameof(tracker));
+        if (dbTracker is null)
+            throw new ArgumentNullException(nameof(dbTracker));
 
-        return Tracker.Load(
-            createdOn: tracker.CreatedOn,
-            createdBy: tracker.CreatedBy,
-            updatedOn: tracker.UpdatedOn,
-            updatedBy: tracker.UpdatedBy,
-            isVoid: tracker.IsVoid,
-            voidOn: tracker.VoidOn,
-            voidBy: tracker.VoidBy,
-            voidMessage: tracker.VoidMessage,
-            voidReason: tracker.VoidReason
+        var tracker = Tracker.Load(
+            createdOn: dbTracker.CreatedOn,
+            createdBy: dbTracker.CreatedBy,
+            updatedOn: dbTracker.UpdatedOn,
+            updatedBy: dbTracker.UpdatedBy,
+            isVoid: dbTracker.IsVoid,
+            voidOn: dbTracker.VoidOn,
+            voidBy: dbTracker.VoidBy,
+            voidMessage: dbTracker.VoidMessage,
+            voidReason: dbTracker.VoidReason
         );
+
+        return tracker;
     }
 
     public static DbTracker Create(string createdBy)
@@ -42,10 +44,12 @@ public record DbTracker : TrackBase
         if (tracker.IsVoid)
             throw new Exception($"{nameof(Update)} failed. Tracker is void");
 
+        var now = DateTimeOffset.UtcNow;
+
         return new(
             createdOn: tracker.CreatedOn,
             createdBy: tracker.CreatedBy,
-            updatedOn: DateTimeOffset.UtcNow,
+            updatedOn: now,
             updatedBy: updatedBy,
             isVoid: tracker.IsVoid,
             voidOn: tracker.VoidOn,
