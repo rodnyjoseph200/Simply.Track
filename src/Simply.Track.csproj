@@ -16,9 +16,13 @@
     <RepositoryUrl>https://github.com/rodnyjoseph200/Simply.Track</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
+    <Version>1.1.1</Version>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 </Project>
