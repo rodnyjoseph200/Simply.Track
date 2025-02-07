@@ -40,8 +40,8 @@ public abstract record TrackBase
         }
     }
 
-    public string? CreatedBy { get; protected set; }
-    public string? UpdatedBy { get; protected set; }
+    public string CreatedBy { get; protected set; }
+    public string UpdatedBy { get; protected set; }
     public bool IsVoid { get; protected set; }
     public string? VoidBy { get; protected set; }
     public string? VoidMessage { get; protected set; }
